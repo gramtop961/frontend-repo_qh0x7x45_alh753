@@ -1,4 +1,4 @@
-import { CheckCircle2, Sprout, Sun } from "lucide-react";
+import { CheckCircle2, Sprout, Sun, Leaf } from "lucide-react";
 import { motion } from "framer-motion";
 import Spline from "@splinetool/react-spline";
 
@@ -19,8 +19,17 @@ const item = {
 export default function Hero() {
   return (
     <section id="home" className="relative overflow-hidden">
-      {/* Background gradient with pointer-events-none so it never blocks interactions */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-zinc-900 to-white pointer-events-none" />
+      {/* Ocean-inspired gradient with pointer-events-none so it never blocks interactions */}
+      <div className="absolute inset-0 bg-gradient-to-b from-emerald-950 via-teal-900 to-white pointer-events-none" />
+
+      {/* Gentle animated wave overlay (non-interactive) */}
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute -top-16 left-1/2 -translate-x-1/2 w-[120vw] h-48 rounded-[100%] blur-3xl bg-emerald-500/20"
+        initial={{ opacity: 0.4, y: 0 }}
+        animate={{ y: [0, 10, 0] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+      />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center py-20">
@@ -77,12 +86,23 @@ export default function Hero() {
                 Explore Services
               </a>
             </motion.div>
+
+            {/* Floating nature icons for added motion */}
+            <motion.div
+              aria-hidden
+              className="pointer-events-none absolute -right-8 top-10 text-green-200"
+              initial={{ opacity: 0, rotate: -8, y: 8 }}
+              animate={{ opacity: 1, rotate: [ -8, 8, -8 ], y: [8, 0, 8] }}
+              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <Leaf className="w-8 h-8" />
+            </motion.div>
           </motion.div>
 
           {/* Right column: immersive Spline animation */}
           <div className="relative w-full h-[520px] sm:h-[560px] lg:h-[640px] rounded-2xl overflow-hidden ring-1 ring-green-200/30 shadow-2xl shadow-black/30 bg-black">
             <Spline
-              scene="https://prod.spline.design/jdTN4VDCXmSY8utE/scene.splinecode"
+              scene="https://prod.spline.design/poZi6bJ4-Htwt04i/scene.splinecode"
               style={{ width: "100%", height: "100%" }}
             />
 
