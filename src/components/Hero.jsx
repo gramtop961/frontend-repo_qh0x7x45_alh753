@@ -1,4 +1,4 @@
-import { CheckCircle2, Sprout, Sun, Leaf } from "lucide-react";
+import { CheckCircle2, Sprout, Sun, Leaf, Waves } from "lucide-react";
 import { motion } from "framer-motion";
 import Spline from "@splinetool/react-spline";
 
@@ -31,8 +31,26 @@ export default function Hero() {
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
       />
 
+      {/* Ambient bubbles rising for ocean feel */}
+      {[...Array(10)].map((_, i) => (
+        <motion.span
+          key={i}
+          aria-hidden
+          className="pointer-events-none absolute rounded-full bg-teal-200/30 blur-[2px]"
+          style={{
+            width: `${6 + (i % 4) * 2}px`,
+            height: `${6 + (i % 4) * 2}px`,
+            left: `${(i * 9) % 100}%`,
+            bottom: `${-10 - i * 8}px`,
+          }}
+          initial={{ y: 0, opacity: 0.5 }}
+          animate={{ y: [-40 - i * 12, -200 - i * 16], opacity: [0.5, 1, 0] }}
+          transition={{ duration: 10 + i, repeat: Infinity, ease: "easeOut", delay: i * 0.3 }}
+        />
+      ))}
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 items-center py-20">
+        <div className="grid lg:grid-cols-2 gap-12 items-center pt-20 pb-10 lg:pb-16">
           <motion.div
             variants={container}
             initial="hidden"
@@ -79,11 +97,11 @@ export default function Hero() {
                 Get a Free Estimate
               </a>
               <a
-                href="#services"
+                href="#testimonials"
                 className="text-green-200 hover:text-white font-medium underline-offset-8 hover:underline inline-flex items-center gap-2"
               >
                 <Sprout className="w-4 h-4" />
-                Explore Services
+                Client Stories
               </a>
             </motion.div>
 
@@ -92,7 +110,7 @@ export default function Hero() {
               aria-hidden
               className="pointer-events-none absolute -right-8 top-10 text-green-200"
               initial={{ opacity: 0, rotate: -8, y: 8 }}
-              animate={{ opacity: 1, rotate: [ -8, 8, -8 ], y: [8, 0, 8] }}
+              animate={{ opacity: 1, rotate: [-8, 8, -8], y: [8, 0, 8] }}
               transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
             >
               <Leaf className="w-8 h-8" />
@@ -100,7 +118,7 @@ export default function Hero() {
           </motion.div>
 
           {/* Right column: immersive Spline animation */}
-          <div className="relative w-full h-[520px] sm:h-[560px] lg:h-[640px] rounded-2xl overflow-hidden ring-1 ring-green-200/30 shadow-2xl shadow-black/30 bg-black">
+          <div className="relative w-full h-[520px] sm:h-[560px] lg:h-[640px] rounded-2xl overflow-hidden ring-1 ring-green-200/30 shadow-2xl shadow-black/30 bg-black z-0">
             <Spline
               scene="https://prod.spline.design/poZi6bJ4-Htwt04i/scene.splinecode"
               style={{ width: "100%", height: "100%" }}
@@ -126,6 +144,13 @@ export default function Hero() {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Decorative wave divider to transition cleanly into the next section */}
+      <div aria-hidden className="pointer-events-none w-full">
+        <svg viewBox="0 0 1440 120" xmlns="http://www.w3.org/2000/svg" className="block w-full h-[80px] sm:h-[100px]">
+          <path d="M0,64 L60,58.7 C120,53,240,43,360,53.3 C480,64,600,96,720,101.3 C840,107,960,85,1080,74.7 C1200,64,1320,64,1380,64 L1440,64 L1440,120 L0,120 Z" fill="#ffffff" fillOpacity="1" />
+        </svg>
       </div>
     </section>
   );
